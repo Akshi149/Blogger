@@ -42,16 +42,38 @@
         <label class="slide-3" for="input-slide-3"></label>
     </div>
 </div>
-{% endblock %} {% block content %} {% for post in posts %}
+{% endblock %} {% block content %}    
+     {% for post in posts %}
 <article class="media content-section">
     <div class="media-body">
         <div class="article-metadata">
-            <a class="mr-2" href="{% url 'blog-profile' name=post.author %}">{{ post.author }}</a>
-            <small class="text-muted">{{ post.date_posted }}</small>
-            <img style="height:19px; width:18px; float:right;" src="{% static "blog/viewicon.png" %}"><p class="viewcount">{{post.view_count}}</p></img>
+          <h2><a class="article-title" href="{% url 'post-detail' post.slug %}">{{ post.title }}</a></h2>
+          <a class="mr-2" href="{% url 'blog-profile' name=post.author %}" >{{ post.author }}</a>
+          <img style="height:19px; width:18px; float:right;" src="{% static 'blog/viewicon.png' %}"><p class="viewcount">{{post.view_count}}</p></img> 
+          <small class="text-muted" style="float:right; padding-right:5px">{{ post.date_posted }}</small>
         </div>
-        <h2><a class="article-title" href="{% url 'post-detail' post.slug %}">{{ post.title }}</a></h2>
-        <p class="article-content">{{ post.content|truncatechars:300 }}</p>
+        <p class="article-content" style="font-size: 21">{{ post.content|truncatechars:300 }}</p>
+        <hr>
+        <i class="material-icons" style="padding: 5px 1 0 0;">thumb_up_alt</i>
+        <i class="material-icons"st yle="padding: 5px 1 0 0;">thumb_down_alt</i>
+        <i class="material-icons"style="padding: 5px 1 0 0;">comments_alt</i>
+        <i class="material-icons"style="float: right;height:19px; width:18px;">share_alt</i>
     </div>
 </article>
-{% endfor %} {% endblock%}
+{% endfor %} 
+{% endblock %}
+{% block sidebar %}
+<div class="col-md-4">
+          
+    <div class="content-section">
+      <h2 style=" font-family:oswald; color:#E85A4F;">Sidebar</h2>
+      <hr>
+      <ul class="list-group">
+        <li > Latest Events</li>
+        <li >Announcements</li> 
+        <li>etc</li>
+      </ul>
+    </div>
+    
+  </div>
+{% endblock%}
