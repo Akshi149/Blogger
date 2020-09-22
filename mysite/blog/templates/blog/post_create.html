@@ -39,11 +39,15 @@
             <div class="form-group">
                 {% csrf_token %}
                 <div id="div_id_title" class="form-group">
-                    <label for="id_title" class=" requiredField">Title<span class="asteriskField">*</span></label>
-                    <div class="">
-                        <input type="text" name="title" maxlength="100" class="textinput textInput form-control" required="" id="id_title"><!--Here name="" is the name of the fields of model-->
-                    </div>
+                    <input type="text" name="title" maxlength="100" class="textinput textInput form-control" required="" id="id_title" placeholder="Add A Catchy Title" style="font-family:roboto; font-size:20px"><!--Here name="" is the name of the fields of model-->
                 </div>
+
+                <div id="div_id_tags" class="form-group"> 
+                    <label for="id_tags" class="">Tags: </label>
+                        <div class="" style="display: inline-block;">
+                            <input type="text" data-role="tagsinput" name="tags" maxlength="100" class="textinput textInput form-control" id="id_tags">
+                        </div>
+                </div><br><br>
 
                 <div id="div_id_image" class="form-group"> 
                     <div class="custom-file">
@@ -64,12 +68,6 @@
                     </div>
                 </div>
 
-                <div id="div_id_tags" class="form-group"> 
-                    <label for="id_tags" class="">Tags: </label>
-                        <div class="" style="display: inline-block;">
-                            <input type="text" data-role="tagsinput" name="tags" maxlength="100" class="textinput textInput form-control" id="id_tags">
-                        </div>
-                </div>
                 <input type="submit" value="Create Post" />
             </div>
         </form> 
