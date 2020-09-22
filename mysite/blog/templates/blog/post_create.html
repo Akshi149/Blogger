@@ -37,23 +37,41 @@
         <h2 class="border-bottom mb-4">Create Post...</h2>
         <form  class ="post-form" method="POST" enctype="multipart/form-data">
             <div class="form-group">
-            {% csrf_token %}
-            {{ form.media }}
-            *
-            <input type="text" name="title" class="form-control" placeholder="Add a Catchy Title" required='True' id="id_title" >
-            <br><br>
-            
-           <div class="custom-file">
-            <input type="file" name="image" accept="image/*" class="custom-file-input" id="file">
-            <label class="custom-file-label" for="file">Choose File</label>
-          </div>
-            <br><br>
-           
-            <div id="formcontent"  type="input"> {{ form.content }}</div>
-            <br><br>
-              <input type="submit" value="Create Post" />
-              </div>
-        </form>
-{% endblock%}
+                {% csrf_token %}
+                <div id="div_id_title" class="form-group">
+                    <label for="id_title" class=" requiredField">Title<span class="asteriskField">*</span></label>
+                    <div class="">
+                        <input type="text" name="title" maxlength="100" class="textinput textInput form-control" required="" id="id_title"><!--Here name="" is the name of the fields of model-->
+                    </div>
+                </div>
 
+                <div id="div_id_image" class="form-group"> 
+                    <div class="custom-file">
+                        <input type="file" name="image" accept="image/*" class="custom-file-input" id="file">
+                        <label class="custom-file-label" for="file">Choose File</label>
+                    </div>
+                    <!-- <label for="id_image" class="">Image</label>
+                        <div class="">
+                            <input type="file" name="image" accept="image/*" class="clearablefileinput form-control-file" id="id_image">
+                        </div> -->
+                </div>
+                
+                <div id="div_id_content" class="form-group">
+                    <label for="id_content" class="">Content</label>
+                    <div class="">
+                        {{form.media}}
+                        {{form.content}}
+                    </div>
+                </div>
+
+                <div id="div_id_tags" class="form-group"> 
+                    <label for="id_tags" class="">Tags: </label>
+                        <div class="" style="display: inline-block;">
+                            <input type="text" data-role="tagsinput" name="tags" maxlength="100" class="textinput textInput form-control" id="id_tags">
+                        </div>
+                </div>
+                <input type="submit" value="Create Post" />
+            </div>
+        </form> 
+{% endblock%}
 

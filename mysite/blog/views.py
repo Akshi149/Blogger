@@ -9,10 +9,16 @@ from django.contrib.auth.decorators import login_required
 from .forms import PostForm
 from django.db.models import Q
 from django.core.paginator import Paginator
-
+from django.http import JsonResponse
 from django.utils import timezone
 
+
 # Create your views here.
+
+def getblogs(request):
+    queryset = Post.objects.all()
+    return JsonResponse({"blogs":list(queryset.values())})
+
 
 def home(request):
     posts = Post.objects.all()
@@ -49,23 +55,25 @@ def about(request):
 
 
 def Profileview(request,name):
-    user =User.objects.get(username=name)
-    posts = user.post_set.all()
-    flag = (request.user==Post.author)
+    user    = User.objects.get(username=name)
+    posts   = user.post_set.all()
+    flag    = (request.user==Post.author)
     context={
-        'user':user, 'flag':flag , 'posts':posts    
+        'user':user,
+        'flag':flag ,
+        'posts':posts,
     }
     
-    if request.user!=user:
+    if request.user != user or request.user == user:
         return render(request,'user/profile.html', context)
     else:
         context={
-            'posts': Post.objects.all(),'flag':flag  
+            'posts': Post.objects.all(),
+            'flag':flag,
         }
-
         return render(request,'blog/home.html',context)
-    
-    
+
+
 class PostDetailView(DetailView):
     model = Post
     def get_object(self):
@@ -78,7 +86,7 @@ class PostDetailView(DetailView):
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
     success_url = '/'
-    fields = ['title', 'image', 'content']
+    fields = ['title', 'image', 'content', 'tags']
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -109,6 +117,7 @@ def post_create(request):
         instance = form.save(commit=False)
         instance.author_id = request.user.id
         instance.save()
+        form.save_m2m()
         messages.success(request, "Successfully Created")
         return redirect('blog-home')
     context  ={
